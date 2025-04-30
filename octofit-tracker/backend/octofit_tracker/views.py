@@ -6,7 +6,10 @@ from .models import User, Team, Activity, Leaderboard, Workout
 
 @api_view(['GET', 'POST'])
 def api_root(request, format=None):
-    base_url = 'http://localhost:8000/'
+    # Use the Codespace URL if available, otherwise fallback to localhost
+    codespace_url = 'https://turbo-succotash-4564rj5vj94hjpjg-8000.app.github.dev/'
+    localhost_url = 'http://localhost:8000/'
+    base_url = codespace_url if 'turbo-succotash-4564rj5vj94hjpjg-8000.app.github.dev' in request.get_host() else localhost_url
     return Response({
         'users': base_url + 'api/users/?format=api',
         'teams': base_url + 'api/teams/?format=api',
